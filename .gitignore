@@ -1,0 +1,6 @@
+.venv/
+__pycache__/
+
+# flux alternatifs crees par Windows sur les fichiers telecharges (WSL)
+*:Zone.Identifier
+*:mshield
