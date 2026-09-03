@@ -4,6 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Car 312 — Moulin de la Chaussée / Pirmil</title>
+<meta name="theme-color" content="#000FA0" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#4C63FF" media="(prefers-color-scheme: dark)">
+<meta name="mobile-web-app-capable" content="yes">
+<link rel="manifest" href="manifest.webmanifest">
+<link rel="apple-touch-icon" href="icon-192.png">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600&family=Barlow+Semi+Condensed:wght@500;600;700&display=swap">
@@ -417,10 +422,21 @@ footer {
   elDate.min = D.validity.start;
   elDate.max = D.validity.end;
   elDate.value = iso(new Date());
-  document.getElementById("footer").textContent =
-    "Ligne " + D.line + " Aléop, horaires du " + longDate(D.validity.start) +
+
+  var pied = "Ligne " + D.line + " Aléop, horaires du " + longDate(D.validity.start) +
     " au " + longDate(D.validity.end) + ". Les arrêts intermédiaires ne sont pas affichés : " +
     "seules les courses desservant les deux arrêts apparaissent.";
+
+  /* Le service worker n'est possible qu'en http(s) : ouvert en file://, la page
+     marche déjà hors ligne, il n'y a rien à installer. */
+  if ("serviceWorker" in navigator && location.protocol !== "file:") {
+    navigator.serviceWorker.register("sw.js").then(function () {
+      document.getElementById("footer").textContent = pied +
+        " Ajoutez la page à votre écran d’accueil pour la consulter hors ligne.";
+    }, function () { /* pas de sw.js à côté de la page : sans conséquence */ });
+  }
+
+  document.getElementById("footer").textContent = pied;
   render();
 })();
 </script>

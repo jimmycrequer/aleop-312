@@ -1,0 +1,17 @@
+{
+  "name": "Car 312 — Moulin de la Chaussée / Pirmil",
+  "short_name": "Car 312",
+  "description": "Horaires du car Aléop 312 entre Moulin de la Chaussée et Pirmil.",
+  "lang": "fr",
+  "dir": "ltr",
+  "start_url": ".",
+  "scope": ".",
+  "display": "standalone",
+  "background_color": "#F0F6FC",
+  "theme_color": "#000FA0",
+  "icons": [
+    { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}

@@ -18,9 +18,15 @@ sont résolus automatiquement à partir du calendrier imprimé sur le fascicule.
 
 ```sh
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
-.venv/bin/python scripts/parse_pdf.py   # PDF -> web/data.js
-python scripts/build.py                 # -> dist/index.html (page autonome)
+.venv/bin/python scripts/parse_pdf.py    # PDF -> web/data.js
+.venv/bin/python scripts/make_icons.py   # icônes d'installation
+python scripts/build.py                  # -> dist/ (page autonome + service worker)
 ```
+
+`dist/` se dépose tel quel sur n'importe quel hébergeur statique. En HTTPS, le service
+worker met la page et les polices en cache : une fois ajoutée à l'écran d'accueil, elle
+s'ouvre hors ligne. La version du cache suit le contenu publié, donc un nouveau fascicule
+remplace les anciens horaires au lieu de les laisser en place.
 
 Le parser reconstruit la grille du fascicule à partir des positions du texte et des rectangles
 d'en-tête ; il faut le relancer à chaque nouveau fascicule, et vérifier que la période de validité,
