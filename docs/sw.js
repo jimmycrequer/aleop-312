@@ -4,7 +4,7 @@
 
    VERSION est réécrit par scripts/build.py à partir du contenu publié : un
    nouveau fascicule change la version, ce qui purge l'ancien cache. */
-const VERSION = "346c81133fc2";
+const VERSION = "dd6e50160085";
 
 const SHELL = "shell-" + VERSION;
 const FONTS = "fonts-v1";
