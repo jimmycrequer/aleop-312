@@ -9,12 +9,14 @@ const VERSION = "dd6e50160085";
 const SHELL = "shell-" + VERSION;
 const FONTS = "fonts-v1";
 
-/* data.js n'existe que dans web/ : dans dist/ les horaires sont déjà dans le
-   HTML. On met donc chaque entrée en cache séparément, sans faire échouer
-   l'installation si l'une manque. */
+/* app.css, app.js et data.js n'existent que dans web/ : dans docs/ ils sont
+   déjà dans le HTML. On met donc chaque entrée en cache séparément, sans faire
+   échouer l'installation si l'une manque. */
 const SHELL_FILES = [
   "./",
   "./index.html",
+  "./app.css",
+  "./app.js",
   "./data.js",
   "./manifest.webmanifest",
   "./icon-192.png",

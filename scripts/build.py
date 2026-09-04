@@ -14,10 +14,21 @@ WEB = ROOT / "web"
 SITE = ROOT / "docs"
 ASSETS = ["manifest.webmanifest", "icon-192.png", "icon-512.png"]
 
-html = (WEB / "index.html").read_text(encoding="utf-8")
-data = (WEB / "data.js").read_text(encoding="utf-8")
+def read(name):
+    return (WEB / name).read_text(encoding="utf-8")
 
-standalone = html.replace('<script src="data.js"></script>', "<script>\n" + data + "</script>")
+
+# La page servie reste un fichier unique : c'est ce qui la rend consultable
+# hors ligne et ouvrable en double-clic, sans rien a cote.
+standalone = read("index.html")
+for tag, inline, source in [
+    ('<link rel="stylesheet" href="app.css">', "style", "app.css"),
+    ('<script src="data.js"></script>', "script", "data.js"),
+    ('<script src="app.js"></script>', "script", "app.js"),
+]:
+    assert tag in standalone, f"balise introuvable dans index.html : {tag}"
+    standalone = standalone.replace(
+        tag, f"<{inline}>\n{read(source)}</{inline}>")
 
 SITE.mkdir(exist_ok=True)
 # GitHub Pages passe le dossier dans Jekyll sans ce fichier.
