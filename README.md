@@ -20,13 +20,18 @@ sont résolus automatiquement à partir du calendrier imprimé sur le fascicule.
 python -m venv .venv && .venv/bin/pip install -r requirements.txt
 .venv/bin/python scripts/parse_pdf.py    # PDF -> web/data.js
 .venv/bin/python scripts/make_icons.py   # icônes d'installation
-python scripts/build.py                  # -> dist/ (page autonome + service worker)
+python scripts/build.py                  # -> docs/ (page autonome + service worker)
 ```
 
-`dist/` se dépose tel quel sur n'importe quel hébergeur statique. En HTTPS, le service
+`docs/` se dépose tel quel sur n'importe quel hébergeur statique, et c'est le dossier que
+GitHub Pages sert (Settings → Pages → *Deploy from a branch* → `main` / `/docs`). En HTTPS, le service
 worker met la page et les polices en cache : une fois ajoutée à l'écran d'accueil, elle
 s'ouvre hors ligne. La version du cache suit le contenu publié, donc un nouveau fascicule
 remplace les anciens horaires au lieu de les laisser en place.
+
+Le fascicule PDF n'est pas versionné : récupérez-le sur [aleop.paysdelaloire.fr](https://aleop.paysdelaloire.fr)
+et déposez-le dans `data/` avant de relancer le parser. `web/data.js`, lui, est versionné, donc la page
+se construit sans le PDF.
 
 Le parser reconstruit la grille du fascicule à partir des positions du texte et des rectangles
 d'en-tête ; il faut le relancer à chaque nouveau fascicule, et vérifier que la période de validité,
